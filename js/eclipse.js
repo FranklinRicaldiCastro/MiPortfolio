@@ -1,21 +1,22 @@
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
+const btnSwitch = document.querySelector('#switch');
 
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    if (body.classList.contains('dark-mode')) {
-        // Si se activa el modo oscuro, se guarda en el almacenamiento local
-        localStorage.setItem('theme', 'dark');
-    } else {
-        // Si se desactiva el modo oscuro, se guarda en el almacenamiento local
-        localStorage.setItem('theme', 'light');
-    }
+btnSwitch.addEventListener('click', () => {
+	document.body.classList.toggle('dark');
+	btnSwitch.classList.toggle('active');
+
+	// Guardamos el modo en localstorage.
+	if(document.body.classList.contains('dark')){
+		localStorage.setItem('dark-mode', 'true');
+	} else {
+		localStorage.setItem('dark-mode', 'false');
+	}
 });
 
-// Verificar el tema guardado en el almacenamiento local al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.classList.add(savedTheme);
-    }
-});
+// Obtenemos el modo actual.
+if(localStorage.getItem('dark-mode') === 'true'){
+	document.body.classList.add('dark');
+	btnSwitch.classList.add('active');
+} else {
+	document.body.classList.remove('dark');
+	btnSwitch.classList.remove('active');
+}
